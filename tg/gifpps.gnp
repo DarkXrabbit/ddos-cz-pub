@@ -1,0 +1,65 @@
+
+#set xlabel "Date"
+set timefmt "%s"
+set format x "%H:%M:%S"
+set xdata time
+
+#set term dumb
+
+set style line 1 linecolor rgb "#006400"
+set style line 2 linecolor rgb "#0000aa"
+set style line 3 linecolor rgb "goldenrod"
+
+set key font ",7"
+set ytic font ",7"
+
+set ytics nomirror
+unset xlabel 
+unset xtics 
+
+set mouse mouseformat 5
+
+#set format y "%.0b%B"
+
+
+set multiplot
+
+set format y "%.0b%B"
+set size 0.5,0.5
+set origin 0,0.5
+plot "/tmp/ifpps.data.graph" using 1:3 title "3:rx-pkts-per-t" with lines linestyle 1, \
+"/tmp/ifpps.data.graph" using 1:11 title "11:tx-pkts-per-t" with lines linestyle 2
+
+set format y "%.0b%B"
+set size 0.5,0.5
+set origin 0.5,0.5
+plot "/tmp/ifpps.data.graph" using 1:2 title "2:rx-bytes-per-t" with lines linestyle 1, \
+"/tmp/ifpps.data.graph" using 1:10 title "10:tx-bytes-per-t" with lines linestyle 2
+
+
+set format y "%.2g"
+set size 0.5,0.5
+set origin 0.5,0.0
+plot "/tmp/ifpps.data.graph" using 1:4 title "4:rx-drops-per-t" with lines, \
+"/tmp/ifpps.data.graph" using 1:5 title "5:rx-errors-per-t" with lines, \
+"/tmp/ifpps.data.graph" using 1:12 title "12:tx-drops-per-t" with lines, \
+"/tmp/ifpps.data.graph" using 1:13 title "13:tx-errors-per-t" with lines
+
+
+set format y "%.0b%B"
+set y2tic textcolor rgb "#006400"
+set size 0.5,0.5
+set origin 0.0,0.0
+plot "/tmp/ifpps.data.graph" using 1:18 axes x1y2 title "18:context-switches-per-t" with lines linestyle 1, \
+"/tmp/ifpps.data.graph" using 1:($20*1000) title "20:mem-used" with lines linestyle 2, \
+"/tmp/ifpps.data.graph" using 1:($23*1000) title "23:swap-used" with lines linestyle 3
+unset y2tics
+
+
+unset multiplot
+
+# rest for 1 second
+pause 1
+
+# repeat plotting process
+reread 
