@@ -1,3 +1,7 @@
+do not abuse, this repository contains pure academic research, do not abuse
+mailto:abuse@cesnet.cz
+mailto:bodik@cesnet.cz
+
 DoS a DDoS utoky
 ------------------------
 
